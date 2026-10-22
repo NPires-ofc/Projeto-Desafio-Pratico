@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Prova dos Arquimagos · Guilda Arcana</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Tema do Prism para colorir código Python -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+    <!-- Pyodide: interpretador Python rodando no navegador (WebAssembly) -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.1/full/pyodide.js"></script>
+</head>
+<body>
+
+<header>
+    <h1>🏰 A Prova dos Arquimagos</h1>
+    <p>Guilda Arcana de Otimização — As 7 Ordens do Big-O</p>
+    <p>Feito por: Nicolas Pires / Julio Higor</p>
+</header>
+
+<main class="lista">
+
+    <!-- ===================== CARD 1 · O(1) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(1)</span>
+            <h2>⚡ Teletransporte Direto</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> O Mago Mestre guardou cada poção em um
+                compartimento numerado da mochila mágica. Quando ele quer a poção da
+                posição 0, ele não precisa vasculhar nada — a mão dele vai direto ao
+                compartimento certo. Isso funciona igual se a mochila tiver 5 itens ou
+                5 milhões: o gesto é o mesmo e o tempo é o mesmo. O tamanho do baú
+                não muda nada.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Acessar <code>lista[0]</code> em Python é
+                uma operação de <em>tempo constante</em>. A lista guarda seus elementos
+                em posições conhecidas, então o Python consegue chegar direto ao
+                elemento pedido, sem percorrer os outros. O tempo de execução não
+                depende de <em>n</em> — o número de itens da lista. Por isso dizemos
+                <strong>O(1)</strong>: o custo é o mesmo para qualquer tamanho de
+                entrada. Dobrar, triplicar ou multiplicar <em>n</em> por mil não
+                altera o tempo dessa operação.
+            </p>
+
+            <div class="code-block">
+                <!-- codigos de PYTHON abaixo "cortando" a ordem dos comandos por ser inevitavel -->
+                <pre><code class="language-python">def invocar_primeiro_feitico(feiticos: list):
+    """
+    Complexidade: O(1)
+    Acessa diretamente o primeiro elemento da lista.
+    """
+
+    if not feiticos:
+        return None
+
+    return feiticos[0]
+
+
+# Teste
+feiticos = [
+    "Bola de Fogo",
+    "Teletransporte",
+    "Escudo Arcano",
+    "Raio de Gelo"
+]
+
+print(invocar_primeiro_feitico(feiticos))</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CARD 2 · O(log n) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(log n)</span>
+            <h2>🔍 Oráculo Binário</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> O Oráculo tem um tomo gigante com runas em
+                ordem crescente, uma por página. Em vez de folhear página por página,
+                ele abre o tomo exatamente no meio. Compara a runa do meio com a que
+                procura: se for menor, sabe que o alvo só pode estar na metade
+                direita; se for maior, só pode estar na esquerda. Ele descarta a
+                metade inútil e repete o processo no que sobrou. A cada consulta, o
+                problema encolhe pela metade.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Essa é a <em>busca binária</em>. Se a lista
+                tem <em>n</em> elementos, quantas vezes conseguimos dividir por 2 até
+                sobrar 1? Exatamente <strong>log₂(n)</strong>. Para <em>n = 1.000.000</em>,
+                bastam cerca de 20 comparações. Para <em>n = 2.000.000</em>, apenas 21
+                — ou seja, dobrar o tamanho da entrada adiciona <em>uma única
+                comparação</em>. Por isso <strong>O(log n)</strong> é considerado
+                muito eficiente mesmo para listas grandes, desde que estejam
+                ordenadas.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def buscar_runa(runas: list, alvo: int):
+    """
+    Complexidade: O(log n)
+    A lista deve estar ordenada.
+    A cada etapa, metade das possibilidades é descartada.
+    """
+
+    inicio = 0
+    fim = len(runas) - 1
+
+    while inicio <= fim:
+        meio = (inicio + fim) // 2
+
+        if runas[meio] == alvo:
+            return meio
+
+        if runas[meio] < alvo:
+            inicio = meio + 1
+        else:
+            fim = meio - 1
+
+    return -1
+
+
+# Teste
+runas = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+
+posicao = buscar_runa(runas, 70)
+
+print(f"Runa encontrada na posição: {posicao}")</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CARD 3 · O(n) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(n)</span>
+            <h2>🛡️ Ronda das Sentinelas</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> A sentinela da muralha recebe uma fila de
+                viajantes desordenados e precisa conferir o passaporte de cada um, um
+                por um. Não tem como pular ninguém: cada viajante pode ser o
+                procurado. Se chegarem 10 viajantes, ela faz 10 verificações. Se
+                chegarem 100, faz 100. Se a fila dobrar, ela gasta exatamente o dobro
+                do tempo.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Isso é uma <em>varredura linear</em> —
+                percorrer todos os <em>n</em> elementos uma única vez com um
+                <code>for</code>. Cada elemento é visitado exatamente uma vez, então
+                o custo cresce <strong>proporcionalmente</strong> ao tamanho da
+                entrada. Se <em>n</em> dobra, o tempo dobra; se triplica, o tempo
+                triplica. É o comportamento de operações como procurar um item em
+                uma lista não-ordenada, somar todos os valores de uma lista ou
+                contar ocorrências. <strong>O(n)</strong> é considerado eficiente —
+                é o mínimo que se espera quando é preciso olhar cada elemento.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def procurar_pergaminho(pergaminhos: list, procurado: str):
+    """
+    Complexidade: O(n)
+    Percorre os elementos até encontrar o pergaminho procurado.
+    No pior caso, percorre toda a lista.
+    """
+
+    for indice, pergaminho in enumerate(pergaminhos):
+        if pergaminho == procurado:
+            return indice
+
+    return -1
+
+
+# Teste
+pergaminhos = [
+    "Pergaminho de Fogo",
+    "Pergaminho de Gelo",
+    "Pergaminho de Cura",
+    "Pergaminho de Sombra",
+    "Pergaminho de Luz"
+]
+
+posicao = procurar_pergaminho(
+    pergaminhos,
+    "Pergaminho de Cura"
+)
+
+print(f"Pergaminho encontrado na posição: {posicao}")</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CARD 4 · O(n log n) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(n log n)</span>
+            <h2>📚 Grande Biblioteca</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> O Arquimago precisa organizar uma estante
+                com milhares de grimórios fora de ordem. Ele não tenta ordenar tudo
+                de uma vez. Em vez disso, divide a estante ao meio, depois cada
+                metade ao meio de novo, e assim por diante — até cada pilha ter
+                apenas um livro. Depois, começa o trabalho inverso: junta duas
+                pilhas pequenas em uma pilha ordenada, e vai juntando essas pilhas
+                maiores até formar a estante inteira em ordem. Em cada junção, ele
+                compara livro por livro e coloca sempre o menor na frente.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Essa é a ideia da <em>divisão e conquista</em>
+                aplicada à ordenação. A parte de <em>dividir</em> cria
+                <strong>log₂(n)</strong> níveis de profundidade, porque cada nível
+                corta a lista pela metade. Em cada nível, o algoritmo precisa
+                percorrer e juntar todos os <em>n</em> elementos uma vez.
+                Multiplicando: <strong>n × log₂(n)</strong> operações no total. Para
+                <em>n = 1.000.000</em>, isso dá cerca de 20 milhões de operações —
+                muito menos do que o 1 trilhão que uma ordenação com laços aninhados
+                (O(n²)) exigiria. Por isso <strong>O(n log n)</strong> é o padrão
+                dos algoritmos de ordenação eficientes.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def merge_sort(monstros: list) -> list:
+    """
+    Complexidade: O(n log n)
+    Ordena os monstros pelo nível de perigo usando Merge Sort.
+    """
+
+    if len(monstros) <= 1:
+        return monstros.copy()
+
+    resultado = monstros.copy()
+    auxiliar = [None] * len(monstros)
+
+    def dividir_e_mesclar(inicio: int, fim: int):
+        if inicio >= fim:
+            return
+
+        meio = (inicio + fim) // 2
+
+        dividir_e_mesclar(inicio, meio)
+        dividir_e_mesclar(meio + 1, fim)
+
+        i = inicio
+        j = meio + 1
+        k = inicio
+
+        # Mescla as duas partes ordenadas.
+        while i <= meio and j <= fim:
+            if resultado[i]["nivel"] <= resultado[j]["nivel"]:
+                auxiliar[k] = resultado[i]
+                i += 1
+            else:
+                auxiliar[k] = resultado[j]
+                j += 1
+
+            k += 1
+
+        # Copia os elementos restantes da metade esquerda.
+        while i <= meio:
+            auxiliar[k] = resultado[i]
+            i += 1
+            k += 1
+
+        # Copia os elementos restantes da metade direita.
+        while j <= fim:
+            auxiliar[k] = resultado[j]
+            j += 1
+            k += 1
+
+        # Atualiza a parte ordenada.
+        resultado[inicio:fim + 1] = auxiliar[inicio:fim + 1]
+
+    dividir_e_mesclar(0, len(resultado) - 1)
+
+    return resultado
+
+
+# Teste
+monstros = [
+    {"nome": "Dragão", "nivel": 100},
+    {"nome": "Goblin", "nivel": 10},
+    {"nome": "Orc", "nivel": 35},
+    {"nome": "Lich", "nivel": 80},
+    {"nome": "Slime", "nivel": 5}
+]
+
+monstros_ordenados = merge_sort(monstros)
+
+for monstro in monstros_ordenados:
+    print(f"{monstro['nome']}: nível {monstro['nivel']}")</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CARD 5 · O(n²) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(n²)</span>
+            <h2>⚔️ Duelo dos Aprendizes</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> No torneio da Guilda, o Mestre decide que
+                cada aprendiz precisa duelar contra <em>todos</em> os outros, uma
+                única vez, para medir seu poder. Com 10 aprendizes, surgem 45 duelos.
+                Com 20 aprendizes, 190 duelos — quase 4 vezes mais. Com 100
+                aprendizes, quase 5.000 duelos. O número cresce muito mais rápido do
+                que o número de participantes, porque cada novo aprendiz precisa
+                duelar contra todos os que já estavam lá.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Isso é o clássico <em>laço aninhado</em>:
+                um <code>for</code> dentro de outro <code>for</code>, cada um
+                percorrendo <em>n</em> elementos, gera <em>n × n = n²</em>
+                iterações. Dobrar o valor de <em>n</em> <strong>quadruplica</strong>
+                o tempo (2² = 4). Triplicar <strong>multiplica por 9</strong>
+                (3² = 9). Algoritmos assim são viáveis só para entradas pequenas —
+                para <em>n = 10.000</em>, já temos 100 milhões de operações. É o
+                custo típico de algoritmos ingênuos de ordenação e de qualquer
+                comparação "par a par" entre elementos.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def duelos_aprendizes(aprendizes: list):
+    """
+    Complexidade: O(n²)
+    Cada aprendiz enfrenta todos os outros uma única vez.
+    """
+
+    duelos = []
+
+    for i in range(len(aprendizes)):
+        for j in range(i + 1, len(aprendizes)):
+            duelos.append((aprendizes[i], aprendizes[j]))
+
+    return duelos
+
+
+# Teste
+aprendizes = [
+    "Arwen",
+    "Merlin",
+    "Gandalf",
+    "Morgana"
+]
+
+duelos = duelos_aprendizes(aprendizes)
+
+for aprendiz_1, aprendiz_2 in duelos:
+    print(f"{aprendiz_1} vs {aprendiz_2}")</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CARD 6 · O(2ⁿ) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(2ⁿ)</span>
+            <h2>🧪 Baú das Fórmulas</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> O alquimista tem uma bancada com
+                <em>n</em> ingredientes. Para descobrir o elixir lendário, ele
+                precisa testar <em>todas</em> as combinações possíveis: cada
+                ingrediente pode entrar no caldeirão ou ficar de fora. Com 1
+                ingrediente, há 2 receitas. Com 2, há 4. Com 3, há 8. A cada novo
+                ingrediente, o número de combinações <strong>dobra</strong>. Com
+                apenas 30 ingredientes, já são mais de 1 bilhão de receitas —
+                impossível testar uma a uma na vida do alquimista.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Esse é o crescimento
+                <strong>exponencial</strong>: <em>2ⁿ</em>. Cada elemento adicionado
+                <strong>dobra</strong> o trabalho total. Para <em>n = 10</em>, são
+                1.024 operações (tranquilo). Para <em>n = 30</em>, cerca de 1 bilhão
+                (alguns segundos). Para <em>n = 60</em>, aproximadamente
+                1,15 × 10¹⁸ operações — mais de <strong>36 anos</strong> em um
+                computador que faz 1 bilhão de operações por segundo. É por isso
+                que problemas exponenciais são considerados <em>intratáveis</em> na
+                prática. Exemplos clássicos: gerar todos os subconjuntos de uma
+                lista e calcular Fibonacci por recursão ingênua.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def fibonacci_magico(n: int) -> int:
+    """
+    Complexidade: O(2^n)
+    Calcula Fibonacci usando recursão ingênua.
+    Os mesmos valores são recalculados diversas vezes.
+    """
+
+    if n <= 1:
+        return n
+
+    return fibonacci_magico(n - 1) + fibonacci_magico(n - 2)
+
+
+# Teste
+n = 10
+
+resultado = fibonacci_magico(n)
+
+print(f"Fibonacci de {n}: {resultado}")</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== CARD 7 · O(n!) ===================== -->
+    <div class="card">
+        <div class="card-head" onclick="toggle(this)">
+            <span class="tag">O(n!)</span>
+            <h2>🗺️ Rota do Mensageiro</h2>
+            <span class="arrow">▾</span>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>🔮 Metáfora:</strong> O Mensageiro Real precisa entregar cartas
+                em <em>n</em> castelos diferentes e quer descobrir a rota
+                <em>mais curta</em> possível. Ele não conhece atalhos, então decide
+                testar <em>todas</em> as ordens possíveis de visita. Com 3 castelos,
+                existem 6 rotas. Com 4, 24. Com 5, 120. Com 10 castelos, são mais de
+                <strong>3,6 milhões</strong> de rotas — e o mensageiro teria que
+                calcular a distância de cada uma. Com 20 castelos, o número é maior
+                do que a quantidade de estrelas da Via Láctea.
+            </p>
+            <p>
+                <strong>⚙️ Técnica:</strong> Esse é o crescimento
+                <strong>fatorial</strong>: <em>n!</em> (produto de 1 até n).
+                Adicionar <em>um</em> castelo multiplica o número de rotas pelo
+                tamanho atual, então o crescimento é ainda mais explosivo que o
+                exponencial. <em>3! = 6</em>, <em>5! = 120</em>,
+                <em>10! = 3.628.800</em>, <em>20! ≈ 2,4 × 10¹⁸</em>. É a
+                complexidade de qualquer algoritmo que precise gerar todas as
+                permutações de uma lista. Na prática, para <em>n ≥ 15</em>, mesmo
+                os computadores mais rápidos do mundo não conseguem terminar.
+            </p>
+
+            <div class="code-block">
+                <pre><code class="language-python">def gerar_permutacoes(castelos: list) -> list:
+    """
+    Complexidade: O(n!)
+    Gera todas as possíveis ordens de visita dos castelos.
+    """
+
+    resultado = []
+    castelos = castelos.copy()
+
+    def gerar(inicio: int):
+        # Quando todos os castelos foram posicionados,
+        # uma rota completa foi encontrada.
+        if inicio == len(castelos):
+            resultado.append(castelos.copy())
+            return
+
+        for i in range(inicio, len(castelos)):
+            # Coloca um castelo na posição atual.
+            castelos[inicio], castelos[i] = (
+                castelos[i],
+                castelos[inicio]
+            )
+
+            gerar(inicio + 1)
+
+            # Desfaz a troca para testar a próxima possibilidade.
+            castelos[inicio], castelos[i] = (
+                castelos[i],
+                castelos[inicio]
+            )
+
+    gerar(0)
+
+    return resultado
+
+
+# Teste
+castelos = [
+    "Castelo Norte",
+    "Castelo Sul",
+    "Castelo Leste",
+    "Castelo Oeste"
+]
+
+rotas = gerar_permutacoes(castelos)
+
+for numero, rota in enumerate(rotas, start=1):
+    print(f"Rota {numero}: {' -> '.join(rota)}")</code></pre>
+                <button class="run-btn" onclick="runPython(this)">▶ Executar</button>
+                <div class="output" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- ===================== DESAFIO FINAL ===================== -->
+<section class="final">
+    <h2>⚖️ Desafio Crítico: O Destino do Reino</h2>
+    <p>Computador Mágico: <strong>1 bilhão (10⁹) de operações/segundo</strong> · Entrada <strong>n = 60</strong> itens.</p>
+
+    <table>
+        <thead>
+            <tr><th>Algoritmo</th><th>Operações</th><th>Tempo</th><th>Impacto</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>O(n²)</td>
+                <td>60² = 3.600</td>
+                <td>~3,6 µs</td>
+                <td>Reino salvo!</td>
+            </tr>
+            <tr>
+                <td>O(2ⁿ)</td>
+                <td>2⁶⁰ ≈ 1,15 × 10¹⁸</td>
+                <td>~36,5 anos</td>
+                <td>Colapso total de Mana</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="justify">
+        <strong>🔮 Justificativa do Mestre:</strong>
+        Enquanto o feitiço quadrático resolve em microssegundos, o exponencial
+        exige mais de três décadas de processamento contínuo — drenaria toda a
+        mana da capital antes do fim!
+    </p>
+</section>
+
+<footer>Guilda Arcana de Otimização · Tomo I</footer>
+
+<!-- Prism (realce de sintaxe) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+<!-- Lógica do site + execução Python -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Georgia, serif;
+    background: #0b0e1a;
+    color: #e9e6f0;
+    padding: 2.5rem 2rem;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #f5e7ff;
+    text-shadow: 0 0 15px #b18aff;
+    letter-spacing: 3px;
+}
+
+header p {
+    color: #b9a7d9;
+    font-style: italic;
+    margin-top: 0.6rem;
+    font-size: 1.2rem;
+}
+
+/* Lista vertical de cards */
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Card */
+.card {
+    background: #131022;
+    border: 1px solid #3d2f5a;
+    border-radius: 1.3rem;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    border-color: #8a6ed6;
+    box-shadow: 0 0 20px rgba(138, 110, 214, 0.25);
+}
+
+.card-head {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.5rem 2rem;
+    background: #1a1430;
+    cursor: pointer;
+    user-select: none;
+}
+
+.card-head h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #decbff;
+    flex: 1;
+}
+
+.tag {
+    font-size: 1rem;
+    background: #2b1f4a;
+    padding: 0.35rem 1rem;
+    border-radius: 20px;
+    color: #c5aaff;
+    border: 1px solid #7e5fb0;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.arrow {
+    color: #aa8ad9;
+    font-size: 1.4rem;
+    transition: transform 0.3s;
+}
+
+.card.open .arrow {
+    transform: rotate(180deg);
+}
+
+.card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease, padding 0.3s ease;
+    padding: 0 2rem;
+    background: #0e0c1a;
+}
+
+.card.open .card-body {
+    max-height: 4000px;
+    padding: 2rem;
+}
+
+.card-body p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #c6b8e0;
+}
+
+.card-body strong {
+    color: #dbbaff;
+}
+
+/* Bloco de código Python */
+.code-block {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.code-block pre {
+    border-radius: 0.9rem;
+    border: 1px solid #3f2e64;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    background: #0a0817;
+    padding: 1.2rem 1.4rem;
+    overflow-x: auto;
+    margin: 0;
+}
+
+.code-block pre code {
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 1rem;
+    tab-size: 4;
+    -moz-tab-size: 4;
+}
+
+/* Botão executar */
+.run-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: linear-gradient(145deg, #6b3fc4, #8a5fe0);
+    color: #fff;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: transform 0.15s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(138, 95, 224, 0.4);
+}
+
+.run-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(138, 95, 224, 0.6);
+}
+
+.run-btn:active {
+    transform: translateY(0);
+}
+
+.run-btn:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Área de saída do Python */
+.output {
+    background: #05030c;
+    border: 1px solid #47b881;
+    border-left: 5px solid #47b881;
+    border-radius: 0.8rem;
+    padding: 1rem 1.2rem;
+    margin-top: 0.8rem;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 1rem;
+    color: #b3e6c7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 2rem;
+}
+
+.output::before {
+    content: "🔮 Saída do oráculo:";
+    display: block;
+    color: #9cd4b0;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.output.error {
+    border-color: #e06c75;
+    border-left-color: #e06c75;
+    color: #ffb3b8;
+}
+
+.output.error::before {
+    content: "⚠️ Erro na conjuração:";
+    color: #ffb3b8;
+}
+
+/* Desafio final */
+.final {
+    max-width: 1200px;
+    margin: 5rem auto 3rem;
+    padding: 3rem;
+    background: linear-gradient(145deg, #1b1130, #251847);
+    border: 2px solid #a77bff;
+    border-radius: 2rem;
+    box-shadow: 0 0 50px rgba(167, 123, 255, 0.45);
+}
+
+.final h2 {
+    text-align: center;
+    color: #f0e0ff;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px #9b6eff;
+}
+
+.final > p {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #d7c8f0;
+    font-size: 1.15rem;
+}
+
+.final table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-size: 1.1rem;
+}
+
+.final th,
+.final td {
+    padding: 1.1rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #3a2b5c;
+}
+
+.final th {
+    background: #2b1f4a;
+    color: #e3d2ff;
+    font-size: 1.15rem;
+}
+
+.final td {
+    background: #180f2c;
+    color: #d7c8f0;
+}
+
+.justify {
+    background: #241836;
+    padding: 1.5rem 1.8rem;
+    border-radius: 1.2rem;
+    border-left: 8px solid #f0b34b;
+    font-style: italic;
+    color: #ebdbff;
+    font-size: 1.1rem;
+}
+
+.justify strong {
+    color: #ffd966;
+    font-style: normal;
+}
+
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 1rem;
+    color: #6a5d85;
+    letter-spacing: 1.5px;
+}
+
+/* Responsivo */
+@media (max-width: 800px) {
+    body { padding: 1.5rem 1rem; font-size: 16px; }
+    header h1 { font-size: 2rem; }
+    header p { font-size: 1rem; }
+    .card-head { padding: 1.1rem 1.3rem; gap: 0.8rem; }
+    .card-head h2 { font-size: 1.15rem; }
+    .tag { font-size: 0.85rem; padding: 0.25rem 0.7rem; }
+    .card.open .card-body { padding: 1.3rem; }
+    .card-body p { font-size: 1rem; }
+    .code-block pre { font-size: 0.9rem; padding: 1rem; }
+    .code-block pre code { font-size: 0.9rem; }
+    .final { padding: 1.5rem; margin-top: 3rem; }
+    .final h2 { font-size: 1.5rem; }
+    .final > p { font-size: 1rem; }
+    .final th,
+    .final td { padding: 0.8rem 0.6rem; font-size: 0.9rem; }
+}
+
+    /* ============================================
+   Estilo para impressão / gerar PDF
+   ============================================ */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt;
+        padding: 0;
+    }
+
+    header h1 {
+        color: #000 !important;
+        text-shadow: none !important;
+        font-size: 22pt;
+    }
+
+    header p {
+        color: #333 !important;
+    }
+
+    .lista {
+        max-width: 100%;
+        gap: 1rem;
+    }
+
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #333 !important;
+        box-shadow: none !important;
+        page-break-inside: avoid;
+    }
+
+    .card-head {
+        background: #eeeeee !important;
+        color: #000 !important;
+    }
+
+    .card-head h2 {
+        color: #000 !important;
+    }
+
+    .tag {
+        background: #dddddd !important;
+        color: #000 !important;
+        border: 1px solid #666 !important;
+    }
+
+    .arrow {
+        color: #333 !important;
+    }
+
+    /* Força todos os cards abertos no PDF */
+    .card-body {
+        max-height: none !important;
+        padding: 1.2rem !important;
+        background: #ffffff !important;
+    }
+
+    .card-body p {
+        color: #000 !important;
+    }
+
+    .card-body strong {
+        color: #000 !important;
+    }
+
+    /* Código Python em fundo claro para leitura no papel */
+    .code-block pre {
+        background: #f5f5f5 !important;
+        border: 1px solid #999 !important;
+        color: #000 !important;
+        box-shadow: none !important;
+    }
+
+    .code-block pre code {
+        color: #000 !important;
+        font-size: 10pt;
+    }
+
+    /* Esconde o botão e a saída no PDF */
+    .run-btn {
+        display: none !important;
+    }
+
+    .output {
+        display: none !important;
+    }
+
+    /* Desafio final em fundo claro */
+    .final {
+        background: #ffffff !important;
+        border: 2px solid #333 !important;
+        box-shadow: none !important;
+        color: #000 !important;
+    }
+
+    .final h2,
+    .final > p,
+    .final th,
+    .final td,
+    .justify {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+
+    .final th {
+        background: #eeeeee !important;
+    }
+
+    .final td {
+        background: #ffffff !important;
+    }
+
+    .justify {
+        background: #f5f5f5 !important;
+        border-left: 5px solid #333 !important;
+    }
+
+    footer {
+        color: #333 !important;
+        font-size: 1rem; padding: 1.1rem;
+    }
+    
+}
