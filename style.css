@@ -32,7 +32,6 @@ header p {
     font-size: 1.2rem;
 }
 
-/* Lista vertical de cards */
 .lista {
     display: flex;
     flex-direction: column;
@@ -116,7 +115,6 @@ header p {
     color: #dbbaff;
 }
 
-/* Bloco de código Python */
 .code-block {
     position: relative;
     margin-top: 1.5rem;
@@ -140,7 +138,6 @@ header p {
     -moz-tab-size: 4;
 }
 
-/* Botão executar */
 .run-btn {
     display: inline-flex;
     align-items: center;
@@ -172,7 +169,6 @@ header p {
     cursor: wait;
 }
 
-/* Área de saída do Python */
 .output {
     background: #05030c;
     border: 1px solid #47b881;
@@ -209,7 +205,6 @@ header p {
     color: #ffb3b8;
 }
 
-/* Desafio final */
 .final {
     max-width: 1200px;
     margin: 5rem auto 3rem;
@@ -284,7 +279,7 @@ footer {
     letter-spacing: 1.5px;
 }
 
-/* Responsivo */
+/* Responsivo para dispositivo móvel*/
 @media (max-width: 800px) {
     body { padding: 1.5rem 1rem; font-size: 16px; }
     header h1 { font-size: 2rem; }
@@ -301,130 +296,4 @@ footer {
     .final > p { font-size: 1rem; }
     .final th,
     .final td { padding: 0.8rem 0.6rem; font-size: 0.9rem; }
-}
-
-    /* ============================================
-   Estilo para impressão / gerar PDF
-   ============================================ */
-@media print {
-    body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        font-size: 12pt;
-        padding: 0;
-    }
-
-    header h1 {
-        color: #000 !important;
-        text-shadow: none !important;
-        font-size: 22pt;
-    }
-
-    header p {
-        color: #333 !important;
-    }
-
-    .lista {
-        max-width: 100%;
-        gap: 1rem;
-    }
-
-    .card {
-        background: #ffffff !important;
-        border: 1px solid #333 !important;
-        box-shadow: none !important;
-        page-break-inside: avoid;
-    }
-
-    .card-head {
-        background: #eeeeee !important;
-        color: #000 !important;
-    }
-
-    .card-head h2 {
-        color: #000 !important;
-    }
-
-    .tag {
-        background: #dddddd !important;
-        color: #000 !important;
-        border: 1px solid #666 !important;
-    }
-
-    .arrow {
-        color: #333 !important;
-    }
-
-    /* Força todos os cards abertos no PDF */
-    .card-body {
-        max-height: none !important;
-        padding: 1.2rem !important;
-        background: #ffffff !important;
-    }
-
-    .card-body p {
-        color: #000 !important;
-    }
-
-    .card-body strong {
-        color: #000 !important;
-    }
-
-    /* Código Python em fundo claro para leitura no papel */
-    .code-block pre {
-        background: #f5f5f5 !important;
-        border: 1px solid #999 !important;
-        color: #000 !important;
-        box-shadow: none !important;
-    }
-
-    .code-block pre code {
-        color: #000 !important;
-        font-size: 10pt;
-    }
-
-    /* Esconde o botão e a saída no PDF */
-    .run-btn {
-        display: none !important;
-    }
-
-    .output {
-        display: none !important;
-    }
-
-    /* Desafio final em fundo claro */
-    .final {
-        background: #ffffff !important;
-        border: 2px solid #333 !important;
-        box-shadow: none !important;
-        color: #000 !important;
-    }
-
-    .final h2,
-    .final > p,
-    .final th,
-    .final td,
-    .justify {
-        color: #000 !important;
-        text-shadow: none !important;
-    }
-
-    .final th {
-        background: #eeeeee !important;
-    }
-
-    .final td {
-        background: #ffffff !important;
-    }
-
-    .justify {
-        background: #f5f5f5 !important;
-        border-left: 5px solid #333 !important;
-    }
-
-    footer {
-        color: #333 !important;
-        font-size: 1rem; padding: 1.1rem;
-    }
-    
 }
